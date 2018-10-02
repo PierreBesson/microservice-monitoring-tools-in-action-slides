@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Monitoring JHipster applications with the JHipster Console</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/star.css">
+		<link rel="stylesheet" href="css/material-icons.css">
+
+		<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background="#3E8ACC" data-transition="none" data-background-transition="none">
+					<!-- <div style="font-family:Pacifico;font-size:110%;">Monitoring JHipster applications<br> with the JHipster Console</div> -->
+					<div style="font-family:Pacifico;font-size:110%;">Monitoring a microservice architecture in practice</div>
+					<img src="img/ELK.png" style="border:none;box-shadow:none;width:35%;background-color:#3e8acc"/>
+					<img src="img/logo-alternate-drinking-coffee.png" style="border:none;box-shadow:none;width:30%;background-color: #3e8acc"/>
+					<img src="img/zipkin.png" style="border:none;box-shadow:none;width:30%;background-color: #3e8acc"/>
+					<hr class="star-light" style="line-height:1">
+					<div style="font-family:'Lucida Sans';">Pierre Besson</div>
+					<div style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size:80%;">Oct 4th 2018</div>
+				</section>
+				<section>
+					<section>
+						<h3>Who am I ?</h3>
+						<hr class="star-primary">
+						<div style="float:left;width:45%;">
+							<img src="img/photo.jpeg" width="260" style="box-shadow:none;border:none"/>
+							<h3>Pierre Besson</h3>
+							<p><a href="http://twitter.com/pibesson"><i class="fa fa-twitter"></i> @pibesson</a></p>
+							<p><a href="http://github.com/PierreBesson"><i class="fa fa-github"></i> PierreBesson</a></p>
+						</div>
+						<br>
+						<br>
+						<div style="float:right;width:55%;font-size:80%">
+							<ul>
+								<li>FullStack & DevOps @IpponTech</li>
+								<li>Monitoring Enthusiast</li>
+								<li>JHipster core team member</li>
+								<li><ul style="list-style-type: none">
+										<li>🍃 Spring</li>
+										<li>🐳 Docker</li>
+										<li>☸️ Kubernetes</li>
+									</ul>
+								</li>
+							</ul>
+							<img src="img/ippon.png" alt="" style="border:none;box-shadow:none" width="35%">
+							<img src="img/heart.png" alt="" style="border:none;box-shadow:none" width="15%">
+							<img src="img/jhipsterA.svg" alt="" style="border:none;box-shadow:none" width="15%">
+						</div>
+					</section>
+				</section>
+			</section>
+				<section>
+						<section>
+								<h2>Overview of the different kinds of monitoring</h2>
+								<span style="color:red;font-size:300%"><i class="fa fa-tachometer"></i></span>
+								<!-- <h4 style="font-size:70%">Different levels of monitoring</h4> -->
+								<h4 style="font-size:70%">Supervision vs Observability</h4>
+							</section>
+					<section>
+						<h3>Supervision
+							vs 
+							Observability</h3>
+						<hr class="star-primary">
+						<div style="font-size:50%" class="fragment">
+							<table>
+								<thead>
+									<th></th>
+									<th>Supervision</th>
+									<th>Observability</th>
+								</thead>
+								<tbody>
+									<tr class="fragment">
+										<th>Responsability</th>
+										<td>Operations team</td>
+										<td>Development team</td>
+									</tr>
+									<tr class="fragment">
+										<th>Goals</th>
+										<td>- Assure system maintainance<br>
+											- Take actions when incident happens
+										</td>
+										<td>- Bring visibility and trust<br>
+											- Try to prevent incident from happening <br>
+										</td>
+									</tr>
+									<tr class="fragment">
+										<th>Data & Metrics</th>
+										<td><i>Blackbox :</i><br>
+											System (CPU, RAM, DISK), processes
+										</td>
+										<td><i>Whitebox :</i><br>
+											Healthchecks, logs, code instrumentation, tracing</td>
+									</tr>
+									<tr class="fragment">
+										<th>Ask</th>
+										<td>- Does it work or not ?</td>
+										<td>- Why and how does it fail ?<br>
+											- What business data can we extract ?<br>
+											- Does this new feature work properly ?
+										</td>
+									</tr>									
+								</tbody>
+							</table>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Monitoring microservices</h2>
+						<span style="color:red;font-size:300%"><i class="fa fa-tachometer"></i></span>
+						<!-- <h4 style="font-size:70%">Different levels of monitoring</h4> -->
+						<h4 style="font-size:70%">Problems</h4>
+						<h4 style="font-size:70%">Solutions</h4>
+						<h4 style="font-size:70%">The JHipster Console</h4>
+					</section>
+					<section>
+						<h4>problems when monitoring microservices</h4>
+						<hr class="star-primary">
+						<div style="font-size:80%">
+							<ul>
+								<li class="fragment"><i class="fa fa-chain-broken"></i> Distributed system -> More complex to <strong>observe</strong></li>
+								<li class="fragment"><i class="fa fa-files-o"></i> Logs are <strong>dispersed</strong> in many log files</li>
+								<li class="fragment"><i class="fa fa-search"></i> Hard to <strong>locate</strong> the microservice that caused a <strong>problem</strong></li>
+								<li class="fragment"><i class="fa fa-link"></i> Hard to <strong>follow the chain</strong> of requests</li><!--As the interractions in the system grows,  -->
+								<li class="fragment">🐇/🐢 Studying <strong>latency</strong> is hard</li>
+								<li class="fragment">💂 Resiliency mechanism are hard to configure properly</li><!-- they can even obstruct you from troubleshoting your system -->
+							</ul>
+						</div>
+					</section>
+					<section>
+						<h3>The solutions</h3>
+						<h4>the 3 ways of Observability</h4>
+						<hr class="star-primary">
+						<div style="font-size:80%">
+						<div class="text-center">
+									<ul style="list-style-type:none">
+										<li class="fragment"><i class="fa fa-file-text-o"></i> <strong>Logs</strong>  : discrete event</li>
+										<li class="fragment"><i class="fa fa-line-chart"></i><strong>Metrics</strong> : numerical values (business or technical)</li><!--  collected by code instrumentation(ex: timer, gauge, counter)-->
+										<li class="fragment"><i class="fa fa-link"></i> <strong>Traces</strong> : chains of calls in the system (spans)</li><!--follow chain calls with by collecting requests informations with a correlation ID -> tracing -->
+									</ul>
+							</ul>
+						</div>
+						<br>
+							<div>
+							<ul style="list-style-type:none">
+								<li class="fragment"><i class="fa fa-database"></i> <strong>Store everything</strong> in one place, with proper metadata</li>
+								<li class="fragment"><i class="fa fa-search"></i> Use a search engine to <strong>query</strong> and <strong>aggregate</strong> monitoring data</li>
+								<li class="fragment"><i class="fa fa-eye"></i> <strong>Visualize</strong> using graphs <i class="fa fa-area-chart"></i> <i class="fa fa-bar-chart"></i> <i class="fa fa-pie-chart"></i> and dashboards <i class="fa fa-television"></i></li>
+								<li class="fragment"><i class="fa fa-compass"></i> Navigate around highly correlated data<!--, switch from global view to more specialized view--></li>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h3>The JHipster Console</h3>
+						<hr class="star-primary">
+						<div style="font-size:70%">
+							<a href="https://www.jhipster.tech/monitoring/">jhipster.tech/monitoring/</a>
+							<ul>
+								<li class="fragment">Setup the <strong>ZELK stack</strong> (Zipkin, Elasticsearch, Logstash, Kibana) in docker</li>
+								<li class="fragment">Enable reporting from any JHipster app with a <strong>few properties</strong></li>
+								<li class="fragment"><strong>Logs + metrics</strong> forwarded with <strong>logback-logstash-encoder</strong></li>
+								<li class="fragment"><strong>Traces</strong> are forwarded to Zipkin using <strong>Spring Cloud Sleuth</strong></li>
+								<li class="fragment">Logs are <strong>enriched</strong> with trace information (<strong>Trace ID</strong>)</strong></li>
+								<li class="fragment">Data is stored in Elasticseach for a certain number of days (<strong>Curator</strong>)</li>
+							</ul>
+						</div>
+					</section>
+					<section>
+						<h5>JHipster Console Architecture</h3>
+						<div style="font-size:70%">
+						<img src="img/jhipster-console.svg" alt="architecture">
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>JHipster Console demo</h2>
+						<span style="color:red;font-size:300%"><i class="fa fa-magic"></i></span>
+						<h4 style="font-size:70%">Setting up the Console</h4>
+						<h4 style="font-size:70%">Navigating around Kibana</h4>
+						<h4 style="font-size:70%">Creating custom visualizations and dashboards</h4>
+						<h4 style="font-size:70%">Graphing metrics, manipulating timeseries</h4>
+						<h4 style="font-size:70%">Following call traces accross services (Kibana + Zipkin)</h4>
+					</section>
+					<section>
+						<h3>The future of JHipster monitoring (Help wanted !)</h2>
+						<ul>
+							<li class="fragment" style="font-size:70%">Migrate from Dropmizard Metrics to Micrometer</li>
+							<li class="fragment" style="font-size:70%">Improve alerting</li>
+							<li class="fragment" style="font-size:70%">Improve Prometheus support and add Grafana dashboards</li>
+							<li class="fragment" style="font-size:70%">Support cloud monitoring solutions: Datadog, Google Stackdriver, ...</li>
+							<li class="fragment" style="font-size:70%">Investigate new monitoring products: OpenCensus, Apache Skywalking, ... </li>
+						</ul>
+					</section>
+				<section>
+					<h2>Thank you !</h2>
+					<div style="font-size:60%">
+					<p>Slides: <a href="https://pierrebesson.github.io/microservice-monitoring-tools-in-action-slides">https://pierrebesson.github.io/microservice-monitoring-tools-in-action-slides</a></p>
+					<p>Code: <a href="https://github.com/PierreBesson/microservice-monitoring-tools-in-action-demo">https://github.com/PierreBesson/microservice-monitoring-tools-in-action-demo</a></p>
+					</div>
+					<p><a href="http://twitter.com/pibesson"><i class="fa fa-twitter"></i>
+@pibesson</a></p>
+					<p><a href="https://github.com/PierreBesson"><i class="fa fa-github"></i> PierreBesson</a></p>
+					<p><a href="mailto:pbesson@ippon.fr"><i class="fa fa-envelope"></i> pbesson@ippon.fr</a></p>
+					<!-- <p>Slides available online<br><a href="https://pierrebesson.github.io/pres-jhipster-meetup-10/">pierrebesson.github.io/pres-jhipster-meetup-10/</a></p>
+					<p><br><i class="fa fa-github"></i> <a href="https://github.com/PierreBesson/meetup-jhipster-10-demo">PierreBesson/meetup-jhipster-10-demo</a>
+				 --></section>
+			</div>
+			<!-- <div class="footer">
+				<img align="right" src="img/logo-texte-devoxx-france-400.png" />
+			  </div> -->
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+				controls: false,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
