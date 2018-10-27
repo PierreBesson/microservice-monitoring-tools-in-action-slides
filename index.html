@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Monitoring JHipster applications with the JHipster Console</title>
+		<title>Monitoring a JHipster microservice architecture in practice</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/white.css">
@@ -31,13 +31,15 @@
 			<div class="slides">
 				<section data-background="#3E8ACC" data-transition="none" data-background-transition="none">
 					<!-- <div style="font-family:Pacifico;font-size:110%;">Monitoring JHipster applications<br> with the JHipster Console</div> -->
-					<div style="font-family:Pacifico;font-size:110%;">Monitoring a microservice architecture in practice</div>
-					<img src="img/ELK.png" style="border:none;box-shadow:none;width:35%;background-color:#3e8acc"/>
-					<img src="img/logo-alternate-drinking-coffee.png" style="border:none;box-shadow:none;width:30%;background-color: #3e8acc"/>
-					<img src="img/zipkin.png" style="border:none;box-shadow:none;width:30%;background-color: #3e8acc"/>
+					<div style="font-family:Pacifico;font-size:110%;">Monitoring a JHipster microservice architecture</div>
+					<img src="img/ELK.png" style="border:none;box-shadow:none;width:30%;background-color:#3e8acc"/>
+					<img src="img/logo-alternate-drinking-coffee.png" style="border:none;box-shadow:none;width:28%;background-color: #3e8acc"/>
+					<img src="img/zipkin.png" style="border:none;box-shadow:none;width:28%;background-color: #3e8acc"/>
 					<hr class="star-light" style="line-height:1">
-					<div style="font-family:'Lucida Sans';">Pierre Besson</div>
-					<div style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size:80%;">Oct 4th 2018</div>
+					<img src="img/vdxmicroservice.png" style="border:none;box-shadow:none;width:28%;background-color: #3e8acc"/>
+					<div style="font-family:'Lucida Sans';">
+						Pierre Besson, <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-size:80%;">Oct 29th 2018</span>
+					</div>
 				</section>
 				<section>
 					<section>
@@ -70,11 +72,10 @@
 					</section>
 				</section>
 			</section>
-				<section>
+				<!-- <section>
 						<section>
 								<h2>Overview of the different kinds of monitoring</h2>
 								<span style="color:red;font-size:300%"><i class="fa fa-tachometer"></i></span>
-								<!-- <h4 style="font-size:70%">Different levels of monitoring</h4> -->
 								<h4 style="font-size:70%">Supervision vs Observability</h4>
 							</section>
 					<section>
@@ -124,18 +125,17 @@
 							</table>
 						</div>
 					</section>
-				</section>
+				</section> -->
 				<section>
 					<section>
 						<h2>Monitoring microservices</h2>
 						<span style="color:red;font-size:300%"><i class="fa fa-tachometer"></i></span>
-						<!-- <h4 style="font-size:70%">Different levels of monitoring</h4> -->
 						<h4 style="font-size:70%">Problems</h4>
 						<h4 style="font-size:70%">Solutions</h4>
 						<h4 style="font-size:70%">The JHipster Console</h4>
 					</section>
 					<section>
-						<h4>problems when monitoring microservices</h4>
+						<h4>Problems when monitoring microservices</h4>
 						<hr class="star-primary">
 						<div style="font-size:80%">
 							<ul>
@@ -206,11 +206,10 @@
 					<section>
 						<h3>The future of JHipster monitoring (Help wanted !)</h2>
 						<ul>
-							<li class="fragment" style="font-size:70%">Migrate from Dropmizard Metrics to Micrometer</li>
+							<li class="fragment" style="font-size:70%">Migrate from Dropmizard Metrics to Micrometer (in progress)</li>
 							<li class="fragment" style="font-size:70%">Improve alerting</li>
 							<li class="fragment" style="font-size:70%">Improve Prometheus support and add Grafana dashboards</li>
 							<li class="fragment" style="font-size:70%">Support cloud monitoring solutions: Datadog, Google Stackdriver, ...</li>
-							<li class="fragment" style="font-size:70%">Investigate new monitoring products: OpenCensus, Apache Skywalking, ... </li>
 						</ul>
 					</section>
 				<section>
